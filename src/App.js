@@ -15,6 +15,9 @@ import AdminPrivateRoute from './AdminPrivateRoute'
 import Page403 from "./components/errors/Page403"
 import Page404 from "./components/errors/Page404"
 import axios from "axios"
+import Collections from './components/frontend/Collections/ViewCategory'
+
+import ViewProduct from './components/frontend/Collections/ViewProduct'
 
 
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -40,6 +43,9 @@ function App() {
           <Route path="/404" element={<Page404 />} />
           <Route path="/login" element={localStorage.getItem('auth_token') ? <Navigate to="/" /> : <Login />} /> 
           <Route path="/register" element={localStorage.getItem('auth_token') ? <Navigate to="/" /> : <Register />} /> 
+          <Route path="/collections" element={<Collections />} />
+          {/* <Route path="/pc" element={<Pc />} /> */}
+          <Route path="/collections/:slug" element={<ViewProduct />} />
           
           {/* <Route path="/admin" element={<MasterLayout />} > 
               
