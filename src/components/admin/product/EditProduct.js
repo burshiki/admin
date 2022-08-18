@@ -207,6 +207,7 @@ const EditProduct = () => {
                                 <div className='col-md-8 form-group mb-3'>
                                     <label>image</label>
                                     <input type="file" name="image" onChange={handleImage} className="form-control"/>
+                                    <img src={`http://localhost:8000/${productInput.image}`} width="50px" />
                                     <small className='text-danger'>{errorlist.image}</small>
                                 </div>
                                 <div className='col-md-4 form-group mb-3'>
