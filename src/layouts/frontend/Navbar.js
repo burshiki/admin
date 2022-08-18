@@ -54,16 +54,7 @@ const Navbar = () => {
                         <Link className="nav-link active" aria-current="page" to="#">Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/collections">Collezzz</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/collections/pc">PC</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/collections/collectibles">Collectibles</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/collections/peripherals">Peripherals</Link>
+                        <Link className="nav-link" to="#">Collection</Link>
                     </li>
                     {AuthButtons}
                 </ul>

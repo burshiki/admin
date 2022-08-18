@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import swal from 'sweetalert';
 
-const AddProduct = () => {
+const EditProduct = () => {
 
     const [categorylist, setCategorylist] = useState([]);
     const [brandlist, setBrandlist] = useState([])
@@ -43,7 +43,7 @@ const AddProduct = () => {
 
 
     useEffect(() => {
-        axios.get(`api/all-category`).then(res => {
+        axios.get(`/api/all-category`).then(res => {
             if (res.data.status === 200) {
                 setCategorylist(res.data.category)
             }
@@ -51,7 +51,7 @@ const AddProduct = () => {
     }, [])
 
     useEffect(() => {
-        axios.get(`api/view-brand`).then(res => {
+        axios.get(`/api/view-brand`).then(res => {
             if (res.data.status === 200) {
                 setBrandlist(res.data.brand)
             }
@@ -117,7 +117,7 @@ const AddProduct = () => {
     <div className='container-fluid px-4'>
         <div className='card mt-4'>
             <div className='card-header'>
-                <h4>Add Product
+                <h4>Edit Product
                     <Link to="/admin/view-product" className='btn btn-primary btn-sm float-end'>View Product</Link>
                 </h4>
             </div>
@@ -253,4 +253,4 @@ const AddProduct = () => {
   )
 }
 
-export default AddProduct
+export default EditProduct

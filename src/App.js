@@ -8,6 +8,8 @@ import Category from './components/admin/category/Category'
 import ViewCategory from './components/admin/category/ViewCategory'
 import EditCategory from './components/admin/category/EditCategory'
 import AddProduct from './components/admin/product/AddProduct'
+import ViewProduct from './components/admin/product/ViewProduct'
+import EditProduct from './components/admin/product/EditProduct'
 import Home from './components/frontend/Home'
 import Login from './components/frontend/auth/Login'
 import Register from "./components/frontend/auth/Register"
@@ -15,9 +17,6 @@ import AdminPrivateRoute from './AdminPrivateRoute'
 import Page403 from "./components/errors/Page403"
 import Page404 from "./components/errors/Page404"
 import axios from "axios"
-import Collections from './components/frontend/Collections/ViewCategory'
-
-import ViewProduct from './components/frontend/Collections/ViewProduct'
 
 
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -43,9 +42,6 @@ function App() {
           <Route path="/404" element={<Page404 />} />
           <Route path="/login" element={localStorage.getItem('auth_token') ? <Navigate to="/" /> : <Login />} /> 
           <Route path="/register" element={localStorage.getItem('auth_token') ? <Navigate to="/" /> : <Register />} /> 
-          <Route path="/collections" element={<Collections />} />
-          {/* <Route path="/pc" element={<Pc />} /> */}
-          <Route path="/collections/:slug" element={<ViewProduct />} />
           
           {/* <Route path="/admin" element={<MasterLayout />} > 
               
@@ -65,6 +61,8 @@ function App() {
                 <Route path='/admin/view-category' element={<ViewCategory />} />
                 <Route path='/admin/edit-category/:id' element={<EditCategory />} />
                 <Route path='/admin/add-product' element={<AddProduct />} />
+                <Route path='/admin/view-product' element={<ViewProduct />} />
+                <Route path='/admin/edit-product/:id' element={<EditProduct />} />
                 <Route path="/admin" element={<Navigate to="/admin/dashboard" /> } />
               </Route>
           </Route>
