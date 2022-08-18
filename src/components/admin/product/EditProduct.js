@@ -1,12 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import swal from 'sweetalert';
 
 const EditProduct = () => {
 
     const [categorylist, setCategorylist] = useState([]);
-    const [brandlist, setBrandlist] = useState([])
     const [productInput, setProduct] = useState({
         category_id: '',
         slug: '',
@@ -29,6 +28,9 @@ const EditProduct = () => {
 
     const [picture, setPicture] = useState([]);
     const [errorlist, setError] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const {id} = useParams();
 
     const handleInput = (e) => {
         e.persist();
@@ -48,23 +50,28 @@ const EditProduct = () => {
                 setCategorylist(res.data.category)
             }
         })
-    }, [])
 
-    useEffect(() => {
-        axios.get(`/api/view-brand`).then(res => {
+       
+        axios.get(`/api/edit-product/${id}`).then(res => {
             if (res.data.status === 200) {
-                setBrandlist(res.data.brand)
+                setProduct(res.data.product)
             }
+            else if (res.data.status === 404) {
+                swal("Error", res.data.message, "error")
+                navigate('/admin/view-product');
+            }
+            setLoading(false);
         })
-    }, [])
 
-    const submitProduct = (e) => {
+    }, [id, navigate])
+
+
+    const updateProduct = (e) => {
         e.preventDefault();
 
         const formData = new FormData();
         formData.append('image', picture.image)
         formData.append('category_id', productInput.category_id)
-        formData.append('brand_id', productInput.brand_id)
         formData.append('slug', productInput.slug)
         formData.append('name', productInput.name)
         formData.append('description', productInput.description)
@@ -81,35 +88,24 @@ const EditProduct = () => {
         formData.append('popular', productInput.popular)
         formData.append('status', productInput.status)
 
-        axios.post(`/api/store-product`, formData).then(res => {
+        axios.post(`/api/update-product/${id}`, formData).then(res => {
             if (res.data.status === 200) {
                 swal("Success", res.data.message, "success")
-                setProduct({...productInput,
-                    category_id: '',
-                    slug: '',
-                    name: '',
-                    description: '',
-            
-                    meta_title: '',
-                    meta_keyword: '',
-                    meta_description: '',
-            
-                    selling_price: '',
-                    original_price: '',
-                    qty: '',
-                    brand: '',
-                    featured: '',
-                    popular: '',
-                    status: '',
-            
-                });
                 setError([])
             }
             else if (res.data.status === 422) {
                 swal("All Fields Must Be Filled","","error")
                 setError(res.data.errors)
             }
+            else if (res.data.status === 404) {
+                swal("Error", res.data.message,"error")
+                navigate('/admin/view-product')
+            }
         })
+    }
+
+    if (loading) {
+        return <h4>Loading...</h4>
     }
 
 
@@ -122,7 +118,7 @@ const EditProduct = () => {
                 </h4>
             </div>
             <div className='card-body'>
-                <form onSubmit={submitProduct} encType='multipart/form-data'>
+                <form onSubmit={updateProduct} encType='multipart/form-data'>
                     <ul className="nav nav-tabs" id="myTab" role="tablist">
                         <li className="nav-item" role="presentation">
                             <button className="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
@@ -153,23 +149,6 @@ const EditProduct = () => {
                                 <small className='text-danger'>{errorlist.category_id}</small>
                             </div>
 
-                            <div className='form-group mb-3'>
-                                <label>Select Brand</label>
-                                <select name="brand_id" onChange={handleInput} value={productInput.brand_id} className='form-control'>
-                                    <option disabled={true}>--Choose and option--</option>
-                                    {
-                                        brandlist.map((item)=> {
-                                            return(
-                                                    
-                                                    <option value={item.id} key={item.id}>{item.name}</option>
-                                            
-                                            )
-                                        })
-                                    }
-                                    
-                                </select>
-                                <small className='text-danger'>{errorlist.category_id}</small>
-                            </div>
                             <div className='form-group mb-3'>
                                 <label>Slug</label>
                                 <input type="text" name="slug" onChange={handleInput} value={productInput.slug} className="form-control" />

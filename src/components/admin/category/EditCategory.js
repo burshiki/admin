@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react'
 import {Link, useNavigate, useParams} from 'react-router-dom'
 import swal from 'sweetalert';
 
-const EditCategory = (props) => {
+const EditCategory = () => {
 
 
     const navigate = useNavigate();

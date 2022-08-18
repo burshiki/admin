@@ -15,7 +15,7 @@ const AdminPrivateRoute = () => {
 
   useEffect(() => {
 
-    axios.get(`http://phplaravel-821452-2822774.cloudwaysapps.com/api/checkingAuthenticated`).then(res => {
+    axios.get(`/api/checkingAuthenticated`).then(res => {
       
       if(res.status === 200) {
         

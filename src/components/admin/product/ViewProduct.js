@@ -10,7 +10,7 @@ const ViewProduct = () => {
     const [productlist, setProductlist] = useState([]);
 
     useEffect(() => {
-        axios.get(`/api/view-product`).then(res => {
+        axios.get(`api/view-product`).then(res => {
             console.log(res.data.product)
             if (res.data.status === 200) {
 
@@ -37,7 +37,7 @@ const ViewProduct = () => {
                     <td>{item.name}</td>
                     <td>{item.selling_price}</td>
                     <td><img src={`http://localhost:8000/${item.image}`} width="50px" alt="{item.name"  /></td>
-                    <td><Link to={`admin/edit-product/${item.id}`} className='btn btn-success btn-sm'>Edit</Link></td>
+                    <td><Link to={`/admin/edit-product/${item.id}`} className='btn btn-success btn-sm'>Edit</Link></td>
                     <td><button className='btn btn-danger btn-sm'>Delete</button></td>
                 </tr>
             )
