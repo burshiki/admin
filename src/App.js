@@ -17,6 +17,9 @@ import AdminPrivateRoute from './AdminPrivateRoute'
 import Page403 from "./components/errors/Page403"
 import Page404 from "./components/errors/Page404"
 import axios from "axios"
+import Contact from "./components/frontend/Contact";
+import About from "./components/frontend/About";
+import FrondtendLayout from "./layouts/frontend/FrontendLayout";
 
 
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -42,17 +45,8 @@ function App() {
           <Route path="/404" element={<Page404 />} />
           <Route path="/login" element={localStorage.getItem('auth_token') ? <Navigate to="/" /> : <Login />} /> 
           <Route path="/register" element={localStorage.getItem('auth_token') ? <Navigate to="/" /> : <Register />} /> 
-          
-          {/* <Route path="/admin" element={<MasterLayout />} > 
-              
-                <Route path='/admin/dashboard' element={<Dashboard />} />
-                <Route path='/admin/profile' element={<Profile />} />
-                <Route path='/admin/category' element={<Category />} />
-             
-                <Route path="/login" element={<Navigate to="admin/dashboard" /> } />
-             
-          </Route>  */}
-         
+
+          {/* Admin Route */}
           <Route element={<AdminPrivateRoute />} >
               <Route path="/admin" element={<MasterLayout />} > 
                 <Route path='/admin/dashboard' element={<Dashboard />} />
@@ -66,6 +60,25 @@ function App() {
                 <Route path="/admin" element={<Navigate to="/admin/dashboard" /> } />
               </Route>
           </Route>
+
+
+          {/* Public Route */}
+          <Route path="/" element= {<FrondtendLayout />} >  
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Route>
+          
+          {/* <Route path="/admin" element={<MasterLayout />} > 
+              
+                <Route path='/admin/dashboard' element={<Dashboard />} />
+                <Route path='/admin/profile' element={<Profile />} />
+                <Route path='/admin/category' element={<Category />} />
+             
+                <Route path="/login" element={<Navigate to="admin/dashboard" /> } />
+             
+          </Route>  */}
+         
+          
         </Routes>
       </Router>
 

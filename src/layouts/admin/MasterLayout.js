@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import '../../assets/admin/css/styles.css'
 import '../../assets/admin/js/scripts'
 
@@ -27,11 +27,6 @@ const MasterLayout = () => {
                 <main>
                     
                     <Outlet />
-                    {/* <Routes>
-                   
-                        <Route path="/admin/*" element={<Navigate to="/admin/dashboard" /> } />
-
-                    </Routes> */}
 
                 </main>
                 <Footer />
