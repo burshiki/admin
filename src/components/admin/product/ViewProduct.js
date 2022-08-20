@@ -27,8 +27,16 @@ const ViewProduct = () => {
         return <h4>Products are loading...</h4>
     }
     else {
+        var ProdStatus = '';
+
         viewproduct_HTMLTABLE =
         productlist.map( (item) => {
+            if (item.status === '0') {
+                ProdStatus = 'Shown';
+            }
+            else if (item.status === '1') {
+                ProdStatus = 'Hidden';
+            }
             return(
                 <tr key={item.id}>
                     <td>{item.id}</td>
@@ -38,7 +46,9 @@ const ViewProduct = () => {
                     <td>{item.selling_price}</td>
                     <td><img src={`http://localhost:8000/${item.image}`} width="50px" alt="{item.name"  /></td>
                     <td><Link to={`/admin/edit-product/${item.id}`} className='btn btn-success btn-sm'>Edit</Link></td>
-                    <td><button className='btn btn-danger btn-sm'>Delete</button></td>
+                    <td>
+                        {ProdStatus}
+                    </td>
                 </tr>
             )
         });
@@ -63,7 +73,7 @@ const ViewProduct = () => {
                             <th>Selling Price</th>
                             <th>Image</th>
                             <th>Edit</th>
-                            <th>Delete</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
